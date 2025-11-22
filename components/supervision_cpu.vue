@@ -1,31 +1,77 @@
 <script setup>
-  import { ref, onMounted} from 'vue';
-  const cpuLoad = ref([]);
-  import axios from "axios";
+import { ref, onMounted, nextTick } from 'vue'
+import axios from 'axios'
+import { Chart } from 'chart.js/auto'
 
+const cpuLoad = ref([])
+const chartCanvas = ref(null)
 
-   onMounted(() => {
-      axios.get("http://localhost:8080/api/mesuresCpu").then(reponse => {
-      // ajouter les nouvelles valeurs
-      reponse.data.forEach(val => cpuLoad.value.push(val))
+onMounted(async () => {
+  try {
+    const response = await axios.get("http://localhost:8080/api/mesuresCpu")
 
-      //console.log("CPU Load :", cpuLoad)
+    // 🔥 EXTRACTION DE cpuLoad
+    cpuLoad.value = response.data.map(item => item.cpuLoad)
+
+    console.log("Valeurs CPU utilisées :", cpuLoad.value)
+
+    await nextTick()
+
+    let chartInstance = new Chart(chartCanvas.value.getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Charge CPU',
+          borderWidth: 2,
+          tension: 0.4,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            //max:5
+          }
+        }
+      }
     })
-    .catch(err => console.error(err))
-  });
+
+    function ajouterValeur(nouvelleValeur) {
+      const index = chartInstance.data.labels.length + 1
+      chartInstance.data.labels.push(`Mesure ${index}`)
+      chartInstance.data.datasets[0].data.push(nouvelleValeur)
+      chartInstance.update()
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
+    async function completerGrapheCpu() {
+      while (true){
+      let reponse = await axios.get("http://localhost:8080/api/lastMesure")
+      let mesureCpu = reponse.data.cpuLoad
+      ajouterValeur(mesureCpu);
+      console.log(mesureCpu)
+      await sleep(500);
+      }
+    }
+
+    completerGrapheCpu();
 
 
+
+  } catch (error) {
+    console.error("Erreur API :", error)
+  }
+})
 </script>
-<template><p>charge Cpu: </p>
-    <p>{{cpuLoad}}</p>
 
-
-    <!--
-      <ul>
-        <li v-for="(load, index) in cpuLoad" :key="index">
-          {{ load }}
-        </li>
-      </ul>
-    -->
+<template>
+  <div style="height:300px;">
+    <canvas ref="chartCanvas"></canvas>
+  </div>
 </template>
-
