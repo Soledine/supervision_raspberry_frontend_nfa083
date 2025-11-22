@@ -14,6 +14,7 @@ onMounted(async () => {
     cpuLoad.value = response.data.map(item => item.cpuLoad)
 
     console.log("Valeurs CPU utilisées :", cpuLoad.value)
+    console.log("test");
 
     await nextTick()
 
