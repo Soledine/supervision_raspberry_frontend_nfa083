@@ -3,6 +3,7 @@ import { ref, onMounted, nextTick } from 'vue'
 import axios from 'axios'
 import { Chart } from 'chart.js/auto'
 
+
 const chartCanvas = ref(null)
 let currentValue=ref(0)
 let minValue=ref(0)
@@ -17,9 +18,9 @@ onMounted(async () => {
       data: {
         labels: [],
         datasets: [{
-          label: 'Charge CPU',
+          label: 'Memoire disponible',
+          borderColor:'green',
           borderWidth: 2,
-          borderColor:'#79c2d0',
           tension: 0.4,
         }]
       },
@@ -50,19 +51,19 @@ onMounted(async () => {
       return new Promise(resolve => setTimeout(resolve, ms))
     }
 
-    async function completerGrapheCpu() {
+    async function completerGrapheMemoire() {
       while (true){
-      //let reponse = await axios.get("http://localhost:8080/api/lastMesureCpu")
-      let reponse = await axios.get("/api/lastMesureCpu")
-      let mesureCpu = reponse.data.cpuLoad
+      //let reponse = await axios.get("http://localhost:8080/api/lastMesureMoire")
+      let reponse = await axios.get("/api/lastMesureMemoire")
+      let mesureMemoire = reponse.data.memory
       let time = reponse.data.time
-      ajouterValeur(mesureCpu,time);
-      console.log(mesureCpu)
+      ajouterValeur(mesureMemoire,time);
+      console.log(mesureMemoire)
       await sleep(3000);
       }
     }
 
-    completerGrapheCpu();
+    completerGrapheMemoire();
   } catch (error) {
     console.error("Erreur API :", error)
   }
@@ -76,10 +77,10 @@ onMounted(async () => {
     </div>
 
     <div class="stats-wrapper">
-      <h4>CPU (%)</h4>
+      <h4>Memoire disponible (%)</h4>
 
       <div class="stat">
-        <span class="label">Courant</span>
+        <span class="label">Valeur actuelle</span>
         <span class="value current">{{ currentValue }} %</span>
       </div>
 
