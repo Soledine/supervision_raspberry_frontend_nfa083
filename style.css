@@ -65,6 +65,49 @@ button:focus-visible {
   text-align: center;
 }
 
+.cpu-container {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  height: 300px;
+  width: 700px; /* adapte si besoin */
+}
+
+.chart-wrapper {
+  flex: 1;
+}
+
+.stats-wrapper {
+  width: 160px;
+  background: #111827;
+  color: #f9fafb;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stats-wrapper h4 {
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.value.current {
+  color: #22c55e; /* vert */
+  font-weight: bold;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
