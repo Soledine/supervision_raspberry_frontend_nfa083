@@ -43,7 +43,8 @@ onMounted(async () => {
 
     async function completerGrapheCpu() {
       while (true){
-      let reponse = await axios.get("http://localhost:8080/api/lastMesure")
+      //let reponse = await axios.get("http://localhost:8080/api/lastMesure")
+      let reponse = await axios.get("/api/lastMesure")
       let mesureCpu = reponse.data.cpuLoad
       ajouterValeur(mesureCpu);
       console.log(mesureCpu)
