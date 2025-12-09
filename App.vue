@@ -1,6 +1,7 @@
 <script setup>
 import supervisioncpu from './components/supervision_cpu.vue';
 import supervisionmemoire from './components/supervision_memoire.vue';
+import supervisionreseau from './components/supervision_network.vue';
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import supervisionmemoire from './components/supervision_memoire.vue';
   </div>
   <supervisioncpu/>
   <supervisionmemoire/>
+  <supervisionreseau/>
 </template>
 
 <style scoped>

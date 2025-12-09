@@ -40,7 +40,6 @@ onMounted(async () => {
       chartInstance.data.labels.push(time)
       chartInstance.data.datasets[0].data.push(nouvelleValeur)
       currentValue.value=nouvelleValeur
-      console.log(chartInstance.data.datasets[0].data)
       minValue.value=Math.min(...chartInstance.data.datasets[0].data)
       maxValue.value=Math.max(...chartInstance.data.datasets[0].data)
       chartInstance.update()
@@ -80,7 +79,7 @@ onMounted(async () => {
 
       <div class="stat">
         <span class="label">Courant</span>
-        <span class="value current">{{ currentValue }} %</span>
+        <span class="value cpu">{{ currentValue }} %</span>
       </div>
 
       <div class="stat">

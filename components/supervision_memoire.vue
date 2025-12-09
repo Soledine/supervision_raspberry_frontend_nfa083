@@ -41,7 +41,6 @@ onMounted(async () => {
       chartInstance.data.labels.push(time)
       chartInstance.data.datasets[0].data.push(nouvelleValeur)
       currentValue.value=nouvelleValeur
-      console.log(chartInstance.data.datasets[0].data)
       minValue.value=Math.min(...chartInstance.data.datasets[0].data)
       maxValue.value=Math.max(...chartInstance.data.datasets[0].data)
       chartInstance.update()
@@ -58,7 +57,6 @@ onMounted(async () => {
       let mesureMemoire = reponse.data.memory
       let time = reponse.data.time
       ajouterValeur(mesureMemoire,time);
-      console.log(mesureMemoire)
       await sleep(3000);
       }
     }

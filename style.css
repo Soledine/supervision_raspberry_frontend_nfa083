@@ -104,7 +104,22 @@ button:focus-visible {
 }
 
 .value.current {
-  color: #22c55e; /* vert */
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.value.upload {
+  color: yellow;
+  font-weight: bold;
+}
+
+.value.download {
+  color: red;
+  font-weight: bold;
+}
+
+.value.cpu {
+  color: #79c2d0;
   font-weight: bold;
 }
 
