@@ -70,7 +70,7 @@ button:focus-visible {
   align-items: stretch;
   gap: 16px;
   height: 300px;
-  width: 700px; /* adapte si besoin */
+  width: 900px;
 }
 
 .chart-wrapper {

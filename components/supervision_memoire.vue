@@ -8,6 +8,7 @@ const chartCanvas = ref(null)
 let currentValue=ref(0)
 let minValue=ref(0)
 let maxValue=ref(0)
+let fileStore=ref([])
 
 
 onMounted(async () => {
@@ -61,7 +62,19 @@ onMounted(async () => {
       }
     }
 
+    async function getFileStore() {
+      //let reponse = await axios.get("http://localhost:8080/api/lastMesureMoire")
+      let reponse = await axios.get("/api/fileStore")
+      fileStore = reponse.data;
+      fileStore.forEach(store => store.percent = Math.round(store.freeSpace*100/store.totalSpace));
+      console.log(fileStore);
+
+    }
+
+
+
     completerGrapheMemoire();
+    getFileStore();
   } catch (error) {
     console.error("Erreur API :", error)
   }
@@ -92,6 +105,18 @@ onMounted(async () => {
         <span class="value">{{ maxValue }} %</span>
       </div>
     </div>
+    
+    <div class="stats-wrapper">
+      <h4>Espace disque</h4>
+
+      <div class="stat" v-for="disk in fileStore" :key="disk.name">
+        <span class="label">{{ disk.name }}</span>
+        <span class="value">{{ disk.percent}} %</span>
+      </div>
+    </div>
+
+
   </div>
+  
 </template>
 
