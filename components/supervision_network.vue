@@ -84,7 +84,7 @@ onMounted(async () => {
     async function completerGrapheMemoire() {
       while (true){
       //let reponse = await axios.get("http://localhost:8080/api/lastMesureMoire")
-      let reponse = await axios.get("/api/lastMesureNetwork")
+      let reponse = await axios.get("/serverMonitor/api/lastMesureNetwork")
       let nom = reponse.data.name;
       let download = reponse.data.bytesReceived;
       let upload = reponse.data.bytesSent;

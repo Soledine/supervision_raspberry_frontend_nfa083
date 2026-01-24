@@ -54,7 +54,7 @@ onMounted(async () => {
     async function completerGrapheMemoire() {
       while (true){
       //let reponse = await axios.get("http://localhost:8080/api/lastMesureMoire")
-      let reponse = await axios.get("/api/lastMesureMemoire")
+      let reponse = await axios.get("/serverMonitor/api/lastMesureMemoire")
       let mesureMemoire = reponse.data.memory
       let time = reponse.data.time
       ajouterValeur(mesureMemoire,time);
@@ -64,7 +64,7 @@ onMounted(async () => {
 
     async function getFileStore() {
       //let reponse = await axios.get("http://localhost:8080/api/lastMesureMoire")
-      let reponse = await axios.get("/api/fileStore")
+      let reponse = await axios.get("/serverMonitor/api/fileStore")
       fileStore = reponse.data;
       fileStore.forEach(store => store.percent = Math.round(store.freeSpace*100/store.totalSpace));
       console.log(fileStore);
