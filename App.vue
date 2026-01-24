@@ -8,7 +8,7 @@ import supervisionreseau from './components/supervision_network.vue';
   <div>
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      <h1>Supervision Raspberry</h1>
+      <h1>Server Monitor</h1>
     </a>
   </div>
   <supervisioncpu/>
